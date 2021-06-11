@@ -4,14 +4,11 @@ import {
 } from './types';
 
 
-export const dec = () => {
-    return {
-        type: LOGIN_FAIL
-    };
-};
 
-export const inc = () => {
-    return {
-        type: LOGIN_SUCCESS
-    };
+export const LogIn = (token) => dispatch => {
+    console.log('Action Dsipatched')
+    dispatch({
+        type: LOGIN_SUCCESS,
+        payload: token
+    });
 };
