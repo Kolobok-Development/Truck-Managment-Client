@@ -24,7 +24,7 @@ export default function( state = initialState, action){
         case LOGIN_FAIL:
             return {
                 ...state,
-                token: payload,
+                token: 'error',
                 isAdmin: false
             };
         default:

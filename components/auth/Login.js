@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { LogIn } from '../../actions/auth';
 
 export default function Login() {
 
+    const [formData, setFormData ] = useState({
+        userHandle: 'admin',
+        password: 'qwerty1234'
+    });
+
     const state = useSelector(state => state.auth);
     const dispatch = useDispatch()
+
     const onClickHanlder = () => {
-       dispatch(LogIn("somthing else"));
+   
+        dispatch(LogIn(formData.userHandle, formData.password));
+      
     };
 
     return (
@@ -18,9 +26,7 @@ export default function Login() {
                 title='Log in'
                 onPress={() => onClickHanlder()}
             />
-            <Text>
-                {state.token}
-            </Text>
+          
         </View>
     );
 
