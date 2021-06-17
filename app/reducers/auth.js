@@ -7,7 +7,8 @@ import {
 
 const initialState = {
     token: null,
-    isAdmin: false
+    isAuthenticated: null
+ 
 };
 
 
@@ -18,14 +19,15 @@ export default function( state = initialState, action){
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                token: payload,
-                isAdmin: true
+                token: payload.token,
+                isAuthenticated: true
+          
             };
         case LOGIN_FAIL:
             return {
                 ...state,
                 token: 'error',
-                isAdmin: false
+                isAuthenticated: false
             };
         default:
             return state;

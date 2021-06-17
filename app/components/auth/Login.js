@@ -26,7 +26,7 @@ export default function Login() {
                 title='Log in'
                 onPress={() => onClickHanlder()}
             />
-          
+
         </View>
     );
 
