@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View, Text} from 'react-native';
 import { useDispatch } from 'react-redux';
 import { LogIn } from '../actions/auth';
 
@@ -8,6 +8,8 @@ import Header from '../components/auth/Header';
 import Input from '../components/auth/Input';
 import Button from '../components/auth/Button';
 
+import { storeData } from '../../storage';
+
 export default function Login() {
 
     const dispatch = useDispatch();
@@ -15,12 +17,20 @@ export default function Login() {
 
     const [formData, setFormData] = useState({
         userHandle: '',
-        password: ''
+        password: '',
+        token: ""
     });
 
-    const onLogInHandler = () => {
-        dispatch(LogIn(formData.userHandle, formData.password));
+    const onLogInHandler = async () => {
+        try {
+            dispatch(LogIn(formData.userHandle, formData.password)).then(async (val) => {
+                await storeData('token', val["payload"]["token"]);
+            });
+        } catch (err) {
+            console.log(err);
+        }
     }
+
     const onChangeTextInput = (name, value) => {
         
         if (name === 'userHandle'){
