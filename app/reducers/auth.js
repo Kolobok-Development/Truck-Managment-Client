@@ -12,7 +12,7 @@ import {
 const initialState = {
     token: null,
     user: null,
-    lading: false,
+    loading: false,
     isAuthenticated: null
  
 };
