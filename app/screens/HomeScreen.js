@@ -1,30 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 
-import { retrieveData } from '../../storage';
+//Redux
+import { useDispatch } from 'react-redux';
+import { loadCurrentUser } from '../actions/auth';
 
 export default function HomeScreen(){
 
-    const [userToken, setUserToken] = useState({
-        token: ""
-    });
-
-    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchToken();
-    }, [])
+       dispatch(loadCurrentUser()); 
+    },[]);
     
-    const fetchToken = async () => {
-        setIsLoading(true);
-        const userTokenTemp = await retrieveData('token');
-        setUserToken({ token: userTokenTemp });
-        setIsLoading(false);
-    }
 
     return (
         <View style={styles.container}>
-            <Text>{userToken.token}</Text>
+            <Text>Main Page</Text>
         </View>
     )
 }

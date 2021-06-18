@@ -3,11 +3,14 @@ import {ActivityIndicator, StyleSheet} from 'react-native';
 
 
 
-export default function LoadingIndicator(){
+export default function LoadingIndicator( size, style){
 
-    return <ActivityIndicator size='large' color="#0000ff" />
+    return <ActivityIndicator size='large' color="#1E90FF" />
+  
 }
 
 const styles = StyleSheet.create({
+    indicator: {
 
+    }
 });

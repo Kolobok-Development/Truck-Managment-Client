@@ -9,6 +9,7 @@ import Login from '../screens/LoginScreen';
 import TruckScren from '../screens/TruckScreen';
 import ClientScreen from '../screens/ClientScreen';
 
+
 //Redux
 import { useSelector } from 'react-redux';
 
@@ -50,16 +51,17 @@ const AppScreens = () => (
     </AppStack.Navigator>
 )
 
-export const AppNavigator = () => {
 
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
-    console.log(isAuthenticated);
+
+export const AppNavigator = () => {
+    const authState = useSelector((state) => state.auth)    
     return (
         <NavigationContainer>
-            {isAuthenticated ? (
+            {authState.isAuthenticated ? (
                 <AppScreens />
             ) : (
                 <AuthScreens />
+        
             )}
         </NavigationContainer>
     )

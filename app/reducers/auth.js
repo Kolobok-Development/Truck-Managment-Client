@@ -1,12 +1,18 @@
 import {
+    LOGIN_REQUEST,
     LOGIN_SUCCESS,
-    LOGIN_FAIL
+    LOGIN_FAIL,
+    USER_AUTH_REQUEST,
+    USER_AUTH_ERROR,
+    USER_AUTH_SUCCESS
 } from '../actions/types';
 
 
 
 const initialState = {
     token: null,
+    user: null,
+    lading: false,
     isAuthenticated: null
  
 };
@@ -16,18 +22,34 @@ export default function( state = initialState, action){
     const { type, payload } = action;
     
     switch(type){
+        case LOGIN_REQUEST:
+        case USER_AUTH_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
         case LOGIN_SUCCESS:
             return {
                 ...state,
                 token: payload.token,
-                isAuthenticated: true
+                isAuthenticated: true,
+                loading: false
           
             };
-        case LOGIN_FAIL:
+        case USER_AUTH_SUCCESS:
             return {
                 ...state,
-                token: 'error',
-                isAuthenticated: false
+                user: payload,
+                loading: false,
+
+            }
+        case LOGIN_FAIL:
+        case USER_AUTH_ERROR:
+            return {
+                ...state,
+                token: null,
+                isAuthenticated: false,
+                loading: false
             };
         default:
             return state;
