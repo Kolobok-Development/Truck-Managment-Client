@@ -1,22 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet, Button, TouchableOpacity, SafeAreaView, ScrollView, Dimensions} from 'react-native';
+
+import { useSelector } from 'react-redux';
 
 //Redux
 import { useDispatch } from 'react-redux';
 import { loadCurrentUser } from '../actions/auth';
 
-export default function HomeScreen(){
+import { loadTasks, loadTaskById } from '../actions/task';
+
+export default function HomeScreen( navigator ){
+
+    const [tasksData, setTasksData] = useState({
+        tasks: []
+    });
+
+    const tasksState = useSelector(state => state.task);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-       dispatch(loadCurrentUser()); 
+        dispatch(loadCurrentUser());
+        dispatch(loadTasks());
     },[]);
-    
+
+    const Tasks = ({ show }) => {
+        let content = [];
+      
+        if (show) {
+            tasksState.tasks.map((item, index) => {
+                content.push(<TouchableOpacity 
+                                onPress={ event => { dispatch(loadTaskById(item._id)); }} 
+                                key={item.creationDate.toString()} 
+                                style={styles.button}> 
+                                    <Text>Статус: {item.status}</Text>
+                                    <Text>Механик: {item.mechanic}</Text>
+                            </TouchableOpacity>);
+            });
+        } else {
+          content = (
+            <View>
+              <Text style={{ fontSize: 60 }}>Don't Show!</Text>
+            </View>
+          )
+        }
+      
+        return <View style={{ padding: 24 }}>{content}</View>
+    }
 
     return (
         <View style={styles.container}>
-            <Text>Main Page</Text>
+            {tasksState !== undefined ? (
+                <SafeAreaView style={styles.container}>
+                    <ScrollView style={styles.scrollView}>
+                        <Tasks show={true} />
+                    </ScrollView>
+                </SafeAreaView>
+            ):(
+                <Text>Все задачи выполнены!</Text>
+            )}
         </View>
     )
 }
@@ -26,5 +68,16 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+    button: {
+        width: Dimensions.get('window').width - 50,
+        marginVertical: 10,
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10
+    },
+    scrollView: {
+        //marginHorizontal: 20,
+      }
 });
+
