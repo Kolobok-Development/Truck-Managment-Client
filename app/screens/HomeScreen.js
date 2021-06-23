@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {View, Text, StyleSheet, Button, TouchableOpacity, SafeAreaView, ScrollView, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView, ScrollView, Dimensions} from 'react-native';
+
+import Tasks from '../components/home/Tasks';
 
 import { useSelector } from 'react-redux';
 
@@ -7,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { loadCurrentUser } from '../actions/auth';
 
-import { loadTasks, loadTaskById } from '../actions/task';
+import { loadTasks } from '../actions/task';
 
 export default function HomeScreen( navigator ){
 
@@ -24,60 +26,12 @@ export default function HomeScreen( navigator ){
         dispatch(loadTasks());
     },[]);
 
-    const pushContent = (item, index) => {
-        switch (item.status.toString()) {
-            case "waiting":
-                return <TouchableOpacity 
-                    onPress={ event => { dispatch(loadTaskById(item._id)); }} 
-                    key={item.creationDate.toString()} 
-                    style={styles.buttonWaiting}> 
-                        <Text>Статус: {item.status}</Text>
-                        <Text>Механик: {item.mechanic}</Text>
-                </TouchableOpacity>
-            case "closed":
-                return <TouchableOpacity 
-                    onPress={ event => { dispatch(loadTaskById(item._id)); }} 
-                    key={item.creationDate.toString()} 
-                    style={styles.buttonClosed}> 
-                        <Text>Статус: {item.status}</Text>
-                        <Text>Механик: {item.mechanic}</Text>
-                </TouchableOpacity>
-            default:
-                return <TouchableOpacity 
-                    onPress={ event => { dispatch(loadTaskById(item._id)); }} 
-                    key={item.creationDate.toString()} 
-                    style={styles.button}> 
-                        <Text>Статус: {item.status}</Text>
-                        <Text>Механик: {item.mechanic}</Text>
-                </TouchableOpacity>
-        }
-    }
-    
-
-    const Tasks = ({ show }) => {
-        let content = [];
-      
-        if (show) {
-            tasksState.tasks.map((item, index) => {
-                content.push(pushContent(item, index));
-            });
-        } else {
-          content = (
-            <View>
-              <Text style={{ fontSize: 60 }}>Don't Show!</Text>
-            </View>
-          )
-        }
-      
-        return <View style={{ padding: 24 }}>{content}</View>
-    }
-
     return (
         <View style={styles.container}>
             {tasksState !== undefined ? (
                 <SafeAreaView style={styles.container}>
                     <ScrollView style={styles.scrollView}>
-                        <Tasks show={true} />
+                        <Tasks tasksState={tasksState} dispatch={dispatch}  />
                     </ScrollView>
                 </SafeAreaView>
             ):(
@@ -117,5 +71,3 @@ const styles = StyleSheet.create({
         padding: 10
     }
 });
-
-
