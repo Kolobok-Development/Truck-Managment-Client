@@ -1,4 +1,4 @@
-//Auth types
+// Auth types
 export const USER_AUTH_REQUEST = 'USER_AUTH_REQUEST';
 export const USER_AUTH_SUCCESS =  'USER_AUTH_SUCCESS';
 export const USER_AUTH_ERROR = 'USER_AUTH_ERROR';
@@ -7,10 +7,20 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 
-//Tasks types
+// Tasks types
 export const FETCH_TASKS_REQUEST = 'FETCH_TASKS_REQUEST';
 export const FETCH_TASKS_SUCCESS = 'FETCH_TASKS_SUCCESS';
 export const FETCH_TASKS_FAIL = 'FETCH_TASKS_FAIL'
 export const FETCH_TASK_REQUEST = 'FETCH_TASK_REQUEST';
 export const FETCH_TASK_SUCCESS = 'FETCH_TASK_SUCCESS';
 export const FETCH_TASK_FAIL = 'FETCH_TASK_FAIL';
+
+// Trucks types
+export const FETCH_TRUCKS_REQUEST = 'FETCH_TRUCKS_REQUEST';
+export const FETCH_TRUCKS_SUCCESS = 'FETCH_TRUCKS_SUCCESS';
+export const FETCH_TRUCKS_FAIL = 'FETCH_TRUCKS_FAIL'
+export const FETCH_TRUCK_REQUEST = 'FETCH_TRUCK_REQUEST';
+export const FETCH_TRUCK_SUCCESS = 'FETCH_TRUCK_SUCCESS';
+export const FETCH_TRUCK_FAIL = 'FETCH_TRUCK_FAIL';
+
+
