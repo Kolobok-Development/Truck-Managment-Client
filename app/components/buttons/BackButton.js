@@ -11,7 +11,7 @@ export default function BackButton({title, style, onPress}){
         <TouchableOpacity style={[styles.container, style]}
             onPress={onPress}
         >
-            <AntDesign name="plus" size={22} color="#1E90FF"/>
+            <AntDesign name="arrowleft" size={22} color="#1E90FF"/>
         </TouchableOpacity>
 
     )

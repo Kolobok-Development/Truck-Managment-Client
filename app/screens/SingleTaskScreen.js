@@ -3,7 +3,8 @@ import {View, Text, StyleSheet} from 'react-native';
 import Constant from 'expo-constants';
 //Components
 import LoadingIndicator from '../components/loading/LoadingIndicator';
-
+import BackButton from '../components/buttons/BackButton';
+import TaskCard from '../components/cards/TaskCard';
 //Redux
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -25,22 +26,19 @@ export default function SingleTaskScreen({ route, navigation }){
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text>sasdasd</Text>
+                <BackButton onPress={() => {
+                    navigation.goBack()
+                }} />
             </View>
             {!task.loading ? (
                 <React.Fragment>
                     { task.task !== null ? (
-                        <View style={styles.content}>
+                        <React.Fragment>
                             <View style={styles.topSection}>
-                                <Text>Somthing went wrong try again</Text>
+                                <Text style={styles.headerTitle}>{task.task.truck.modelName}</Text>
                             </View>
-                            <View style={styles.midSection}>
-
-                            </View>
-                            <View style={styles.actions}>
-
-                            </View>
-                        </View>
+                            <TaskCard data={task.task} />
+                        </React.Fragment>
                     ):(
                         <Text>Somthing went wrong try again</Text>
                     )}
@@ -60,14 +58,16 @@ const styles = StyleSheet.create({
         backgroundColor: "#D6EAF8"
     },
     header: {
-        height: 200,
-        marginTop: Constant.statusBarHeight
+        marginTop: Constant.statusBarHeight,
+        padding: 10
     },
-    content: {
-        borderTopLeftRadius: 50,
-        borderTopRightRadius: 50,
-        backgroundColor: '#FBFCFC',
-        
+    topSection: {
+        padding: 30
+    },  
+    headerTitle: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#34495E'
     }
      
 
