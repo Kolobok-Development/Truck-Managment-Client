@@ -10,6 +10,7 @@ import Login from '../screens/LoginScreen';
 import TruckScren from '../screens/TruckScreen';
 import ClientScreen from '../screens/ClientScreen';
 import AddTaskScreen from '../screens/AddTaskScreen';
+import SingleTaskScreen from '../screens/SingleTaskScreen';
 
 
 //Redux
@@ -50,7 +51,9 @@ const HomeScreenStack = () => (
                     />
                 ),
                 headerStyle: {
-                   
+                   elevation: 0,
+                   shadowOpacity: 0,
+                   backgroundColor: "#ECF0F1"
                 }
             
             })}
@@ -64,6 +67,13 @@ const HomeScreenStack = () => (
 
             })}
 
+        />
+        <Screen 
+            name="Task"
+            component={SingleTaskScreen}
+            options={{
+                headerShown: false
+            }}
         />
 
     </HomeStack.Navigator>

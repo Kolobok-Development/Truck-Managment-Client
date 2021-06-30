@@ -21,36 +21,33 @@ export default function (state = initialState, action) {
 
     const  {type, payload} = action;
 
-    //console.log(payload);
 
     switch(type) {
         case FETCH_TASKS_REQUEST:
+        case FETCH_TASK_REQUEST:
             return {
-                ...state
+                ...state,
+                loading: true
             }
         case FETCH_TASKS_SUCCESS:
             return {
                 ...state,
-                tasks: payload
+                tasks: payload,
+                loading: false
             };
         case FETCH_TASKS_FAIL:
+        case FETCH_TASK_FAIL:
             return {
-                ...state
-            }
+                ...state,
+                loading: false,
+            };
 
-            case FETCH_TASK_REQUEST:
-            return {
-                ...state
-            }
         case FETCH_TASK_SUCCESS:
             return {
                 ...state,
-                task: payload
+                task: payload,
+                loading: false
             };
-        case FETCH_TASK_FAIL:
-            return {
-                ...state
-            }
         default:
             return state;
     }

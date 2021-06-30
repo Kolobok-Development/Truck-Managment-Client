@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import {View, Text, StyleSheet, SafeAreaView, ScrollView, Dimensions} from 'react-native';
+import React,  {  useEffect } from 'react';
+import {View, Text, StyleSheet, SafeAreaView, ScrollView, Dimensions, TouchableOpacity} from 'react-native';
 
+//Components
 import Tasks from '../components/home/Tasks';
-
-import { useSelector } from 'react-redux';
+import LoadingIndicator from '../components/loading/LoadingIndicator';
+import Card from '../components/home/Card';
 
 //Redux
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { loadCurrentUser } from '../actions/auth';
-
 import { loadTasks } from '../actions/task';
 
-export default function HomeScreen( navigator ){
 
-    const [tasksData, setTasksData] = useState({
-        tasks: []
-    });
+export default function HomeScreen({ navigation } ){
 
-    const tasksState = useSelector(state => state.task);
-
+    const task = useSelector(state => state.task);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -26,16 +23,34 @@ export default function HomeScreen( navigator ){
         dispatch(loadTasks());
     },[]);
 
+
     return (
         <View style={styles.container}>
-            {tasksState !== undefined ? (
-                <SafeAreaView style={styles.container}>
-                    <ScrollView style={styles.scrollView}>
-                        <Tasks tasksState={tasksState} dispatch={dispatch}  />
-                    </ScrollView>
-                </SafeAreaView>
+            {!task.loading ? (
+                <React.Fragment>
+                    { task.tasks.length > 0 ? (
+                        <SafeAreaView>
+                            <ScrollView style={styles.scrollView}>
+                                    {
+                                        task.tasks.map((t, i) => (
+                                            <TouchableOpacity key={i} onPress={() => {
+                                                navigation.navigate("Task", {
+                                                    taskId: t._id
+                                                });
+                                            } }>
+                                                <Card  data={t} />
+                                            </TouchableOpacity>
+                                            
+                                        ))
+                                    }
+                            </ScrollView>
+                        </SafeAreaView>
+                    ):(
+                        <Text>Все задачи выполнины</Text>
+                    )}
+                </React.Fragment>
             ):(
-                <Text>Все задачи выполнены!</Text>
+                <LoadingIndicator />
             )}
         </View>
     )
@@ -44,8 +59,8 @@ export default function HomeScreen( navigator ){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        backgroundColor: '#FBFCFC'
+        
     },
     button: {
         width: Dimensions.get('window').width - 50,
@@ -55,6 +70,7 @@ const styles = StyleSheet.create({
         padding: 10
     },
     scrollView: {
+    
     },
     buttonWaiting: {
         width: Dimensions.get('window').width - 50,

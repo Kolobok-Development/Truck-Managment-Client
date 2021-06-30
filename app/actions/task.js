@@ -25,9 +25,6 @@ export const loadTasks = () => async dispatch => {
     
     try {
         const res = await axios.get(`${configData.baseURL}/api/task/getCurrentTasks`);
-
-        console.log(res.data);
-
         dispatch({
             type: FETCH_TASKS_SUCCESS,
             payload: res.data
@@ -54,7 +51,6 @@ export const loadTaskById = (id) => async dispatch => {
     
     try {
         const res = await axios.get(`${configData.baseURL}/api/task/getTaskById/${id}`);
-        console.log(res.data);
         dispatch({
             type: FETCH_TASK_SUCCESS,
             payload: res.data
