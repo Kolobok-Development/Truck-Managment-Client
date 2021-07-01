@@ -57,19 +57,19 @@ export default function TaskCard({ data }){
                         <Text style={styles.sectionTitle}>Клиент</Text> 
                         <View style={styles.clientSectionItemOne}>
                                 <Fontisto name="person" size={23} color="#1E90FF" />
-                                <Text style={styles.sectionOneText}>Александр</Text> 
+                                <Text style={styles.sectionOneText}>{data.client.nameHandle}</Text> 
                         </View>
                         <View style={styles.clientSectionItemOne}>
                                 <MaterialCommunityIcons name="office-building" size={24} color="#1E90FF" />
-                                <Text style={styles.sectionOneText}>ООО Строй-Ком</Text> 
+                                <Text style={styles.sectionOneText}>{data.client.companyName}</Text> 
                         </View>
                         <View style={styles.clientSectionItemOne}>
                                 <MaterialIcons name="email" size={24} color="#1E90FF" />
-                                <Text style={styles.sectionOneText}>sales@stroykom.ru</Text> 
+                                <Text style={styles.sectionOneText}>s{data.client.email}</Text> 
                         </View>
                         <View style={styles.clientSectionItemOne}>
                                 <MaterialIcons name="local-phone" size={24} color="#1E90FF" />
-                                <Text style={styles.sectionOneText}>+7 920 346 02-62</Text> 
+                                <Text style={styles.sectionOneText}>{data.client.phoneNumber}</Text> 
                         </View>
                     </View>
                     <View style={styles.actionContainer}>

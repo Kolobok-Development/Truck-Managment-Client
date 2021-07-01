@@ -61,6 +61,7 @@ export const loadTruckById = (id) => async dispatch => {
         });
 
     }catch (err){
+        console.log(err)
         dispatch({
             type: FETCH_TRUCK_FAIL
         });

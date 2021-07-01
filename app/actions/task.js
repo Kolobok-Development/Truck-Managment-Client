@@ -71,9 +71,16 @@ export const chageTaskSataus = (id) => async dispatch => {
     dispatch({type: FETCH_TASK_STATUS_CAHNGE_REQUEST})
 
     try{
-
+        const res = await axios.get(`${configData.baseURL}/api/task/changeStatus//${id}`);
+        dispatch({
+            type: FETCH_TASK_STATUS_CAHNGE_SUCCESS,
+            
+        })
     }catch (err){
-        console.log(err)
+        console.log(err);
+        dispatch({
+            type: FETCH_TASK_STATUS_CAHNGE_FAIL
+        })
     }
 
 };

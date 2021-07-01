@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Dimensions} from 'react-native';
 
-import Trucks from '../components/trucks/Trucks';
+//Redux
+import LoadingIndicator from '../components/loading/LoadingIndicator';
+import TruckCard from '../components/trucks/TruckCard';
 
 import { loadTruckById, loadTrucks } from '../actions/truck';
 
@@ -10,9 +12,10 @@ import { useSelector } from 'react-redux';
 //Redux
 import { useDispatch } from 'react-redux';
 
-export default function TruckScreen(){
+export default function TruckScreen({navigation}){
 
-    const trucksState = useSelector(state => state.truck);
+    const truck = useSelector(state => state.truck);
+    const { loading } = truck;
 
     const dispatch = useDispatch();
     
@@ -20,9 +23,8 @@ export default function TruckScreen(){
         dispatch(loadTrucks());
     },[]);
 
-    return (
-        <View style={styles.container}>
-            {trucksState !== undefined ? (
+    /*
+         {trucksState !== undefined ? (
                 <SafeAreaView style={styles.container}>
                     <ScrollView style={styles.scrollView}>
                         <Trucks trucksState={trucksState} dispatch={dispatch}  />
@@ -31,6 +33,34 @@ export default function TruckScreen(){
             ):(
                 <Text>Все задачи выполнены!</Text>
             )}
+    */
+    return (
+        <View style={styles.container}>
+            {!loading ? (
+                <React.Fragment>
+                    {truck.trucks.length > 0 ? (
+                        <SafeAreaView>
+                            <ScrollView style={styles.scrollView}>
+                                {
+                                    truck.trucks.map((t, i) => (
+                                        <TouchableOpacity key={i} onPress={() => {
+                                            navigation.navigate("Truck", {
+                                                truckId: t._id
+                                            })
+                                        }}>
+                                            <TruckCard data={t} />
+                                        </TouchableOpacity>
+                                    ))
+                                }
+                            </ScrollView>
+                        </SafeAreaView>
+                    ): (
+                      <Text>Машин нету в базе</Text>
+                    )}
+                </React.Fragment>
+            ):(
+                <LoadingIndicator />
+            )}
         </View>
     )
 }
@@ -38,14 +68,7 @@ export default function TruckScreen(){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        backgroundColor: '#FBFCFC'
     },
-    button: {
-        width: Dimensions.get('window').width - 50,
-        marginVertical: 10,
-        alignItems: 'center',
-        backgroundColor: '#DDDDDD',
-        padding: 10
-    }
+    
 });

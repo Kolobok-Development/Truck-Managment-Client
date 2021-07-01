@@ -1,17 +1,17 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 
 
 
-export default function AddButton({title, style, onPress}){
+export default function BurgerButton({style, onPress}){
 
     return (
         <TouchableOpacity style={[styles.container, style]}
             onPress={onPress}
         >
-            <AntDesign name="plus" size={22} color="#34495E"/>
+            <MaterialIcons name="menu" size={24} color="#34495E" />
         </TouchableOpacity>
 
     )

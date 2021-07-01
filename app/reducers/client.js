@@ -1,18 +1,17 @@
 import {
-    FETCH_TRUCKS_REQUEST,
-    FETCH_TRUCK_SUCCESS, 
-    FETCH_TRUCK_REQUEST,
-    FETCH_TRUCK_FAIL,
-    FETCH_TRUCKS_SUCCESS,
-    FETCH_TRUCKS_FAIL
-
+    FETCH_CLIENTS_REQUEST,
+    FETCH_CLIENTS_SUCCESS,
+    FETCH_CLIENTS_FAIL,
+    FETCH_CLIENT_REQUEST,
+    FETCH_CLIENT_SUCCESS,
+    FETCH_CLIENT_FAIL,
 } from '../actions/types';
 
 
 
 const initialState = {
-    trucks: [],
-    truck: null,
+    clients: [],
+    client: null,
     loading: false,
 }
 
@@ -21,31 +20,30 @@ export default function (state = initialState, action) {
 
     const  {type, payload} = action;
 
-    console.log(payload);
-
     switch(type) {
-        case FETCH_TRUCK_REQUEST:
-        case FETCH_TRUCKS_REQUEST:
+        case FETCH_CLIENTS_REQUEST:
+        case FETCH_CLIENT_REQUEST:
             return {
                 ...state,
                 loading: true
             }
-        case FETCH_TRUCKS_SUCCESS:
+        case FETCH_CLIENTS_SUCCESS:
             return {
                 ...state,
-                trucks: payload,
+                clients: payload,
                 loading: false
             };
-        case FETCH_TRUCK_FAIL:
-        case FETCH_TRUCKS_FAIL:
+        case FETCH_CLIENTS_FAIL:
+        case FETCH_CLIENT_FAIL:
             return {
                 ...state,
-                loading: false
+                loading: false,
             };
-        case FETCH_TRUCK_SUCCESS:
+
+        case FETCH_CLIENT_SUCCESS:
             return {
                 ...state,
-                truck: payload,
+                client: payload,
                 loading: false
             };
         default:
