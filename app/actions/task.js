@@ -4,7 +4,10 @@ import {
     FETCH_TASK_REQUEST,
     FETCH_TASK_FAIL,
     FETCH_TASKS_SUCCESS,
-    FETCH_TASKS_FAIL
+    FETCH_TASKS_FAIL,
+    FETCH_TASK_STATUS_CAHNGE_FAIL,
+    FETCH_TASK_STATUS_CAHNGE_REQUEST,
+    FETCH_TASK_STATUS_CAHNGE_SUCCESS
 
 } from './types'
 
@@ -62,4 +65,15 @@ export const loadTaskById = (id) => async dispatch => {
         });
 
     }
-}
+};
+
+export const chageTaskSataus = (id) => async dispatch => {
+    dispatch({type: FETCH_TASK_STATUS_CAHNGE_REQUEST})
+
+    try{
+
+    }catch (err){
+        console.log(err)
+    }
+
+};
